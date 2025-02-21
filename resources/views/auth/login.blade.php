@@ -56,4 +56,14 @@
             </button>
         </div>
     </form>
+
+    <!-- Register Link -->
+    <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">
+            {{ __('Don\'t have an account?') }}
+            <a href="{{ route('register') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                {{ __('Register') }}
+            </a>
+        </p>
+    </div>
 </x-crmi-guest-layout>

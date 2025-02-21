@@ -28,4 +28,14 @@
             </button>
         </div>
     </form>
+
+    <!-- Link to Login if user remembers their password -->
+    <div class="mt-4 text-center">
+        <p class="text-sm text-gray-600">
+            {{ __('Remember your password?') }}
+            <a href="{{ route('login') }}" class="underline text-sm text-gray-600 hover:text-gray-900">
+                {{ __('Login') }}
+            </a>
+        </p>
+    </div>
 </x-crmi-guest-layout>

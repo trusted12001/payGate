@@ -26,11 +26,17 @@
           <div class="info">
             <a class="dropdown-toggle p-15 d-grid" data-bs-toggle="dropdown" href="#"></a>
             <div class="dropdown-menu dropdown-menu-end">
-              <a class="dropdown-item" href="#"><i class="ti-user"></i> Profile</a>
-              <a class="dropdown-item" href="#"><i class="ti-email"></i> Inbox</a>
-              <a class="dropdown-item" href="#"><i class="ti-link"></i> Conversation</a>
+              <a class="dropdown-item" href="{{ route('profile.edit') }}">
+                <i class="ti-user"></i> Profile
+              </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#"><i class="ti-lock"></i> Logout</a>
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <i class="ti-lock"></i> Logout
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
             </div>
           </div>
         </div>
@@ -38,8 +44,22 @@
       <!-- Sidebar menu -->
       <div class="multinav">
         <div class="multinav-scroll" style="height: 97%;">
-          <!-- Copy the sidebar menu HTML here and update asset paths -->
+          <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">Main Menu</li>
+            <li>
+              <a href="{{ route('dashboard') }}">
+                <i class="icon-Layout-4-blocks"><span class="path1"></span><span class="path2"></span></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="{{ route('admin.users.index') }}">
+                <i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
+                <span>User Management</span>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
-  </aside>
+</aside>
