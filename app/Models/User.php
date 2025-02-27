@@ -47,4 +47,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function taxProfile()
+    {
+        return $this->hasOne(TaxProfile::class);
+    }
+
+
 }
+

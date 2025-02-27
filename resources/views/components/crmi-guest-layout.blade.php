@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CRMi - Log in</title>
+  <title>PayGate - App</title>
 
   <!-- Vendors Style-->
   <link rel="stylesheet" href="{{ asset('src/css/vendors_css.css') }}">
+  <link rel="icon" href="{{ asset('images/favicon_img.png') }}" type="image/x-icon">
 
   <!-- Template Style-->
   <link rel="stylesheet" href="{{ asset('src/css/style.css') }}">
@@ -22,19 +23,11 @@
             <div class="bg-white rounded10 shadow-lg">
               <div class="content-top-agile p-20 pb-0">
                 <h2 class="text-primary">Let's Get Started</h2>
-                <p class="mb-0">Sign in to continue to CRMi.</p>
+                <p class="mb-0">Proceed to PayGate.</p>
               </div>
               <div class="p-40">
                 {{ $slot }}
               </div>
-            </div>
-            <div class="text-center">
-              <p class="mt-20 text-white">- Sign With -</p>
-              <p class="gap-items-2 mb-20">
-                <a class="btn btn-social-icon btn-round btn-facebook" href="#"><i class="fa fa-facebook"></i></a>
-                <a class="btn btn-social-icon btn-round btn-twitter" href="#"><i class="fa fa-twitter"></i></a>
-                <a class="btn btn-social-icon btn-round btn-instagram" href="#"><i class="fa fa-instagram"></i></a>
-              </p>
             </div>
           </div>
         </div>

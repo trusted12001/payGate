@@ -4,7 +4,7 @@
       <a href="{{ route('dashboard') }}" class="logo">
         <div class="logo-mini w-30">
           <span class="light-logo">
-            <img src="{{ asset('images/logo-letter.png') }}" alt="logo">
+            {{-- <img src="{{ asset('images/logo-letter.png') }}" alt="logo"> --}}
           </span>
           <span class="dark-logo">
             <img src="{{ asset('images/logo-letter-white.png') }}" alt="logo">
@@ -12,10 +12,10 @@
         </div>
         <div class="logo-lg">
           <span class="light-logo">
-            <img src="{{ asset('images/logo-dark-text.png') }}" alt="logo">
+            {{-- <img src="{{ asset('images/favicon_img.png') }}" alt="logo"> --}}
           </span>
           <span class="dark-logo">
-            <img src="{{ asset('images/logo-light-text.png') }}" alt="logo">
+            <img src="{{ asset('images/favicon_img.png') }}" alt="logo">
           </span>
         </div>
       </a>

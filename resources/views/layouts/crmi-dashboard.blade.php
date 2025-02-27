@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="{{ asset('images/favicon.ico') }}">
-  <title>CRMi - Dashboard</title>
+  <title>PayGate - Dashboard</title>
+  <link rel="icon" href="{{ asset('images/favicon_img.png') }}" type="image/x-icon">
 
   <!-- Vendors Style -->
   <link rel="stylesheet" href="{{ asset('src/css/vendors_css.css') }}">
