@@ -12,12 +12,12 @@
 
                 <div class="form-group">
                     <label for="mineral">Mineral</label>
-                    <select name="mineral" id="mineral" class="form-control" required>
+                    <select name="mineral_id" id="mineral" class="form-control" required>
                         <option value="">Select Mineral</option>
-                        @foreach($minerals as $mineral)
-                        <option value="{{ $mineral }}" {{ $setting->mineral == $mineral ? 'selected' : '' }}>
-                            {{ $mineral }}
-                        </option>
+                        @foreach($minerals as $id => $mineral)
+                            <option value="{{ $id }}" {{ $setting->mineral_id == $id ? 'selected' : '' }}>
+                                {{ $mineral }}
+                            </option>
                         @endforeach
                     </select>
                 </div>

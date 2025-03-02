@@ -10,14 +10,13 @@ class TaxProfile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
-        'tax_category',
-        'lga',
-        'additional_info',
+        'user_id', 'taxpayer_type', 'full_name', 'business_name', 'email', 'phone_number',
+        'local_government', 'tax_category', 'business_reg_number',
+        'identification_number', 'registered_address', 'assigned_agent_id', 'status'
     ];
 
-    public function user()
+    public function agent()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'assigned_agent_id');
     }
 }

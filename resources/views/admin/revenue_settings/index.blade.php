@@ -35,7 +35,7 @@
                     <tbody>
                         @foreach($settings as $setting)
                         <tr>
-                            <td>{{ $setting->mineral }}</td>
+                            <td>{{ $setting->mineralDeposit->mineral_name ?? 'N/A' }}</td>
                             <td>{{ $setting->per_gram }}</td>
                             <td>{{ $setting->per_kg }}</td>
                             <td>{{ $setting->per_bag }}</td>

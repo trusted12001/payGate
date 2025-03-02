@@ -10,8 +10,6 @@ return new class extends Migration {
         Schema::create('tax_profiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('tax_category'); // e.g., "Mining", "Sand Packing", "Gravel Mining", etc.
-            $table->string('lga');          // Local Government Area from Kaduna state
             $table->text('additional_info')->nullable(); // Optional additional details (e.g., truck size)
             $table->timestamps();
         });

@@ -20,7 +20,7 @@
             @foreach($sites as $site)
             <tr>
                 <td>{{ $site->site_name }}</td>
-                <td>{{ $site->prominent_mineral_deposit }}</td>
+                <td>{{ $site->mineral_name }}</td>
                 <td>{{ $site->lease_number }}</td>
                 <td>{{ $site->local_government }}</td>
                 <td>{{ ucfirst($site->status) }}</td>

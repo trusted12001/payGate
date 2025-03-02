@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('revenue_settings', function (Blueprint $table) {
             $table->id();
-            $table->string('mineral');
-            $table->decimal('per_gram', 15, 2)->nullable();
-            $table->decimal('per_kg', 15, 2)->nullable();
-            $table->decimal('per_bag', 15, 2)->nullable();
-            $table->decimal('per_ton', 15, 2)->nullable();
-            $table->decimal('per_truck', 15, 2)->nullable();
+            $table->foreignId('mineral_id')->constrained('mineral_deposits')->onDelete('cascade');
+            $table->decimal('per_gram', 10, 2)->nullable();
+            $table->decimal('per_kg', 10, 2)->nullable();
+            $table->decimal('per_bag', 10, 2)->nullable();
+            $table->decimal('per_ton', 10, 2)->nullable();
+            $table->decimal('per_truck', 10, 2)->nullable();
             $table->timestamps();
         });
     }

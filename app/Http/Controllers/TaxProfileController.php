@@ -2,105 +2,129 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\TaxProfile;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class TaxProfileController extends Controller
 {
-    /**
-     * Show the form for creating a new tax profile.
-     */
-    public function create()
+    public function index()
     {
-        // If user already has a profile, redirect to edit
-        $profile = Auth::user()->taxProfile;
-        if ($profile) {
-            return redirect()->route('tax-profile.edit');
+        if (Auth::user()->hasRole('Super Admin')) {
+            $taxProfiles = TaxProfile::all(); // Admin can see all profiles
+        } elseif (Auth::user()->hasRole('Agent')) {
+            $taxProfiles = TaxProfile::where('assigned_agent_id', Auth::id())->get(); // Agents see only their assigned profiles
+        } else {
+            $taxProfiles = TaxProfile::where('email', Auth::user()->email)->get(); // Taxpayers see only their profile
         }
-        $lgas = $this->getKadunaLGAs();
-        return view('tax-profile.create', compact('lgas'));
+
+        return view('tax-profile.index', compact('taxProfiles'));
     }
 
-    /**
-     * Store a newly created tax profile.
-     */
+    public function create()
+    {
+        $agents = User::role('Agent')->pluck('name', 'id'); // Get all agents
+        $localGovernments = [
+            'Birnin Gwari', 'Chikun', 'Giwa', 'Igabi', 'Ikara', 'Jaba',
+            'Jema\'a', 'Kachia', 'Kaduna North', 'Kaduna South', 'Kagarko',
+            'Kajuru', 'Kaura', 'Kauru', 'Kubau', 'Kudan', 'Lere',
+            'Makarfi', 'Sabon Gari', 'Sanga', 'Soba', 'Zangon Kataf', 'Zaria'
+        ];
+        return view('tax-profile.create', compact('agents', 'localGovernments'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'tax_category'    => 'required|string',
-            'lga'             => 'required|string',
-            'additional_info' => 'nullable|string',
+            'taxpayer_type' => 'required|string',
+            'full_name' => 'nullable|string|max:255',
+            'business_name' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:tax_profiles',
+            'phone_number' => 'required|string|max:20',
+            'local_government' => 'required|string',
+            'tax_category' => 'required|string',
+            'business_reg_number' => 'nullable|string',
+            'identification_number' => 'nullable|string',
+            'registered_address' => 'required|string',
+            'assigned_agent_id' => 'nullable|exists:users,id',
         ]);
 
         TaxProfile::create([
-            'user_id'         => Auth::id(),
-            'tax_category'    => $request->tax_category,
-            'lga'             => $request->lga,
-            'additional_info' => $request->additional_info,
+            'user_id' => auth()->id(), // This ensures the profile belongs to the logged-in user
+            'taxpayer_type' => $request->taxpayer_type,
+            'full_name' => $request->full_name,
+            'business_name' => $request->business_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'local_government' => $request->local_government,
+            'tax_category' => $request->tax_category,
+            'business_reg_number' => $request->business_reg_number,
+            'identification_number' => $request->identification_number,
+            'registered_address' => $request->registered_address,
+            'assigned_agent_id' => $request->assigned_agent_id,
+            'status' => 'Active', // Default status
         ]);
-
-        return redirect()->route('dashboard')->with('success', 'Tax profile created successfully.');
+        $taxProfiles = TaxProfile::all(); // Fetch all tax profiles from the database
+        return view('tax-profile.index', compact('taxProfiles'))
+            ->with('success', 'Tax profile created successfully.');
     }
 
-    /**
-     * Show the form for editing the tax profile.
-     */
-    public function edit()
+
+
+    public function edit($id)
     {
-        $profile = Auth::user()->taxProfile;
-        if (!$profile) {
-            return redirect()->route('tax-profile.create');
-        }
-        $lgas = $this->getKadunaLGAs();
-        return view('tax-profile.edit', compact('profile', 'lgas'));
+        $taxProfile = TaxProfile::findOrFail($id); // Fetch tax profile by ID
+        $localGovernments = [
+            'Birnin Gwari', 'Chikun', 'Giwa', 'Igabi', 'Ikara', 'Jaba', 'Jema\'a',
+            'Kachia', 'Kaduna North', 'Kaduna South', 'Kagarko', 'Kajuru', 'Kaura',
+            'Kauru', 'Kubau', 'Kudan', 'Lere', 'Makarfi', 'Sabon Gari', 'Sanga',
+            'Soba', 'Zangon Kataf', 'Zaria'
+        ];
+
+        $taxCategories = [
+            'Royalty', 'Corporate Income Tax', 'Indirect Tax',
+            'Licensing Fees', 'Surface Right Fees',
+            'Environmental Fees', 'Production Sharing'
+        ];
+
+        return view('tax-profile.edit', compact('taxProfile', 'localGovernments', 'taxCategories'));
     }
 
-    /**
-     * Update the tax profile.
-     */
-    public function update(Request $request)
+
+
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'tax_category'    => 'required|string',
-            'lga'             => 'required|string',
-            'additional_info' => 'nullable|string',
+            'taxpayer_type' => 'required|string',
+            'full_name' => 'nullable|string|max:255',
+            'business_name' => 'nullable|string|max:255',
+            'email' => 'required|email|unique:tax_profiles,email,' . $id,
+            'phone_number' => 'required|string|max:20',
+            'local_government' => 'required|string',
+            'tax_category' => 'required|string',
+            'business_reg_number' => 'nullable|string',
+            'identification_number' => 'nullable|string',
+            'registered_address' => 'required|string',
         ]);
 
-        $profile = Auth::user()->taxProfile;
-        $profile->update($request->only('tax_category', 'lga', 'additional_info'));
+        $taxProfile = TaxProfile::findOrFail($id);
 
-        return redirect()->route('dashboard')->with('success', 'Tax profile updated successfully.');
+        $taxProfile->update([
+            'taxpayer_type' => $request->taxpayer_type,
+            'full_name' => $request->full_name,
+            'business_name' => $request->business_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'local_government' => $request->local_government,
+            'tax_category' => $request->tax_category,
+            'business_reg_number' => $request->business_reg_number,
+            'identification_number' => $request->identification_number,
+            'registered_address' => $request->registered_address,
+        ]);
+
+        return redirect()->route('tax-profile.index')->with('success', 'Tax Profile updated successfully.');
     }
 
-    /**
-     * Return an array of Kaduna State LGAs.
-     */
-    private function getKadunaLGAs()
-    {
-        return [
-            'Birnin Gwari'   => 'Birnin Gwari',
-            'Chikun'         => 'Chikun',
-            'Giwa'           => 'Giwa',
-            'Igabi'          => 'Igabi',
-            'Ikara'          => 'Ikara',
-            "Jema'a"         => "Jema'a",
-            'Kachia'         => 'Kachia',
-            'Kaduna North'   => 'Kaduna North',
-            'Kaduna South'   => 'Kaduna South',
-            'Kagarko'        => 'Kagarko',
-            'Kajuru'         => 'Kajuru',
-            'Kaura'          => 'Kaura',
-            'Kauru'          => 'Kauru',
-            'Kubau'          => 'Kubau',
-            'Kudan'          => 'Kudan',
-            'Lere'           => 'Lere',
-            'Makarfi'        => 'Makarfi',
-            'Sabon Gari'     => 'Sabon Gari',
-            'Sanga'          => 'Sanga',
-            'Soba'           => 'Soba',
-            'Zangon Kataf'   => 'Zangon Kataf',
-            'Zaria'          => 'Zaria',
-        ];
-    }
 }

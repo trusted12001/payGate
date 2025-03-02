@@ -39,7 +39,7 @@
                     <select name="prominent_mineral_deposit" class="form-control" required>
                         <option value="">Select Mineral Deposit</option>
                         @foreach($minerals as $id => $mineral)
-                            <option value="{{ $mineral }}" {{ $site->prominent_mineral_deposit == $id ? 'selected' : '' }}>{{ $mineral }}</option>
+                            <option value="{{ $id }}" {{ $site->prominent_mineral_deposit == $id ? 'selected' : '' }}>{{ $mineral }}</option>
                         @endforeach
                     </select>
                 </div>

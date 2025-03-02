@@ -4,6 +4,15 @@
 
 <div class="container-fluid">
     <h1>Create Revenue Setting</h1>
+    <!---Display error message --->
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!</strong> {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     <div class="card">
         <div class="card-body">
@@ -12,10 +21,10 @@
 
                 <div class="form-group">
                     <label for="mineral">Mineral</label>
-                    <select name="mineral" id="mineral" class="form-control" required>
+                    <select name="mineral_id" id="mineral" class="form-control" required>
                         <option value="">Select Mineral</option>
-                        @foreach($minerals as $mineral)
-                        <option value="{{ $mineral }}">{{ $mineral }}</option>
+                        @foreach($minerals as $id => $mineral)
+                        <option value="{{ $id }}">{{ $mineral }}</option>
                         @endforeach
                     </select>
                 </div>

@@ -18,7 +18,7 @@ class MiningSiteController extends Controller
 
     public function index()
     {
-        $sites = MiningSite::all();
+        $sites = MiningSite::join('mineral_deposits', 'prominent_mineral_deposit', 'mineral_deposits.id')->get(['mining_sites.id','mining_sites.site_name','mining_sites.site_description','mining_sites.prominent_mineral_deposit','mining_sites.lease_number','mining_sites.local_government','mining_sites.status', 'mineral_deposits.id as mdid', 'mineral_deposits.mineral_name', 'mineral_deposits.description']);
         return view('admin.mining_sites.index', compact('sites'));
     }
 

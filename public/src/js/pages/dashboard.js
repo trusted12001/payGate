@@ -7,8 +7,8 @@
 $(function () {
 
   'use strict';
-	
-		 
+
+
 	var options = {
           series: [70, 38],
           chart: {
@@ -46,9 +46,9 @@ $(function () {
 
         var chart = new ApexCharts(document.querySelector("#chart41"), options);
         chart.render();
-	
-		
-		 
+
+
+
 	var options = {
           series: [32, 80],
           chart: {
@@ -86,8 +86,8 @@ $(function () {
 
         var chart = new ApexCharts(document.querySelector("#chart42"), options);
         chart.render();
-		
-		 
+
+
 	var options = {
           series: [102, 12],
           chart: {
@@ -125,8 +125,8 @@ $(function () {
 
         var chart = new ApexCharts(document.querySelector("#chart43"), options);
         chart.render();
-	
-		
+
+
 		var options = {
           series: [{
           name: 'This Week',
@@ -168,8 +168,8 @@ $(function () {
 
         var chart = new ApexCharts(document.querySelector("#chart44"), options);
         chart.render();
-	
-	
+
+
 	var options = {
         series: [17, 22, 19],
         chart: {
@@ -178,11 +178,11 @@ $(function () {
       		height: 240
         },
 		colors:['#7047ee', '#3596f7', '#ffa800'],
-		labels: ["On line", "in Store", "Marketing"],
+		labels: ["On Site", "Task Force", "Online"],
 		legend: {
 		  show: true,
 		  position: 'bottom',
-      	  horizontalAlign: 'center', 
+      	  horizontalAlign: 'center',
 		},
 		dataLabels: {
 			enabled: false,
@@ -199,13 +199,13 @@ $(function () {
 
       var chart = new ApexCharts(document.querySelector("#sales-chart"), options);
       chart.render();
-	
+
 	$('.activity-div').slimScroll({
 		height: '250px'
 	});
-	
-	
-	
+
+
+
 		var options = {
           series: [{
 			  name: 'Earning',
@@ -231,10 +231,10 @@ $(function () {
               offsetY: 0
             }
           }
-        }],		
+        }],
 		grid: {
 			show: true,
-			borderColor: '#f7f7f7',      
+			borderColor: '#f7f7f7',
 		},
 		colors:['#7047ee'],
         plotOptions: {
@@ -247,7 +247,7 @@ $(function () {
         dataLabels: {
           enabled: false
         },
- 
+
         xaxis: {
           type: 'datetime',
           categories: ['08/01/2021 GMT', '08/02/2021 GMT', '08/03/2021 GMT', '08/04/2021 GMT','08/05/2021 GMT', '08/06/2021 GMT', '08/07/2021 GMT', '08/08/2021 GMT', '08/09/2021 GMT'
@@ -263,7 +263,7 @@ $(function () {
 
         var chart = new ApexCharts(document.querySelector("#charts_widget_1_chart"), options);
         chart.render();
-	
-	
-	
+
+
+
 }); // End of use strict

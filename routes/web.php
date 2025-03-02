@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\POSController;
 use App\Http\Controllers\TaxProfileController;
+use App\Http\Controllers\HomeController;
 
 
 
@@ -26,9 +27,9 @@ Route::get('/contact', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -39,6 +40,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/tax-profile/store', [TaxProfileController::class, 'store'])->name('tax-profile.store');
     Route::get('/tax-profile/edit', [TaxProfileController::class, 'edit'])->name('tax-profile.edit');
     Route::post('/tax-profile/update', [TaxProfileController::class, 'update'])->name('tax-profile.update');
+    Route::resource('tax-profile', TaxProfileController::class);
+
+    Route::prefix('payments')->name('payments.')->group(function () {
+        Route::get('/history', [\App\Http\Controllers\PaymentController::class, 'history'])->name('history');
+        Route::get('/make', [\App\Http\Controllers\PaymentController::class, 'selectProfile'])->name('select');
+        Route::get('/pay/{profile}', [\App\Http\Controllers\PaymentController::class, 'makePayment'])->name('make');
+        Route::post('/process', [\App\Http\Controllers\PaymentController::class, 'processPayment'])->name('process');
+        Route::get('/receipt/{payment}', [\App\Http\Controllers\PaymentController::class, 'printReceipt'])->name('receipt');
+    });
 });
 
 
@@ -57,6 +67,7 @@ Route::middleware(['auth', 'role:Super Admin'])->prefix('admin')->name('admin.')
 
     // Mineral Deposits
     Route::resource('mineral_deposits', \App\Http\Controllers\Admin\MineralDepositController::class);
+
 });
 
 

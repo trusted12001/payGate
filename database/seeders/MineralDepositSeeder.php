@@ -11,7 +11,7 @@ class MineralDepositSeeder extends Seeder
 {
     public function run()
     {
-        $filePath = storage_path('app/public/revenue on solid minerals.xlsx');
+        $filePath = storage_path('app/public/revenue_on_solid_minerals.xlsx');
         $spreadsheet = IOFactory::load($filePath);
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray(null, true, true, true);
