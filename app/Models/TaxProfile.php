@@ -12,7 +12,7 @@ class TaxProfile extends Model
     protected $fillable = [
         'user_id', 'taxpayer_type', 'full_name', 'business_name', 'email', 'phone_number',
         'local_government', 'tax_category', 'business_reg_number',
-        'identification_number', 'registered_address', 'assigned_agent_id', 'status'
+        'identification_number', 'vehicle_registration', 'registered_address', 'assigned_agent_id', 'status'
     ];
 
     public function agent()

@@ -62,6 +62,7 @@ class TaxProfileController extends Controller
             'tax_category' => $request->tax_category,
             'business_reg_number' => $request->business_reg_number,
             'identification_number' => $request->identification_number,
+            'vehicle_registration' => $request->vehicle_registration,
             'registered_address' => $request->registered_address,
             'assigned_agent_id' => $request->assigned_agent_id,
             'status' => 'Active', // Default status
@@ -106,6 +107,7 @@ class TaxProfileController extends Controller
             'tax_category' => 'required|string',
             'business_reg_number' => 'nullable|string',
             'identification_number' => 'nullable|string',
+            'vehicle_registration' => 'nullable|string',
             'registered_address' => 'required|string',
         ]);
 
@@ -121,10 +123,18 @@ class TaxProfileController extends Controller
             'tax_category' => $request->tax_category,
             'business_reg_number' => $request->business_reg_number,
             'identification_number' => $request->identification_number,
+            'vehicle_registration' => $request->vehicle_registration,
             'registered_address' => $request->registered_address,
         ]);
 
         return redirect()->route('tax-profile.index')->with('success', 'Tax Profile updated successfully.');
+    }
+
+
+    public function show($id)
+    {
+        $profile = TaxProfile::findOrFail($id);
+        return view('tax-profile.show', compact('profile'));
     }
 
 }

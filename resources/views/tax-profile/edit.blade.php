@@ -83,6 +83,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="identification_number">Vehicle Reg. Number</label>
+                    <input type="text" name="vehicle_registration" class="form-control" value="{{ $taxProfile->vehicle_registration }}">
+                </div>
+
+                <div class="form-group">
                     <label for="registered_address">Registered Address</label>
                     <input type="text" name="registered_address" class="form-control" value="{{ $taxProfile->registered_address }}" required>
                 </div>

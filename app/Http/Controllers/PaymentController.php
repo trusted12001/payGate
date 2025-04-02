@@ -7,6 +7,8 @@ use App\Models\TaxProfile;
 use App\Models\RevenueSetting;
 use App\Models\Payment;
 use Illuminate\Support\Facades\Auth;
+use App\Models\MineralDeposit;
+use App\Models\MiningSite;
 
 class PaymentController extends Controller
 {
@@ -27,21 +29,36 @@ class PaymentController extends Controller
     // Load payment page for selected profile
     public function makePayment(TaxProfile $profile)
     {
-        // Debugging: Log Profile ID
-        \Log::info("Making payment for Profile ID: " . $profile->id);
+        // // Debugging: Log Profile ID
+        // \Log::info("Making payment for Profile ID: " . $profile->id);
 
-        // Fetch revenue settings for the selected mineral
-        $revenueSettings = RevenueSetting::whereHas('mineralDeposit', function ($query) use ($profile) {
-            $query->where('mineral_name', $profile->tax_category);
-        })->first();
+        // // Fetch revenue settings for the selected mineral
+        // $revenueSettings = RevenueSetting::whereHas('mineralDeposit', function ($query) use ($profile) {
+        //     $query->where('mineral_id', 2);
+        // })->first();
 
-        // If no revenue setting is found, redirect with error message
-        if (!$revenueSettings) {
-            \Log::error("Revenue setting not found for tax category: " . $profile->tax_category);
-            return back()->with('error', 'Revenue setting not found for the selected tax category.');
+        // // If no revenue setting is found, redirect with error message
+        // if (!$revenueSettings) {
+        //     \Log::error("Revenue setting not found for tax category: " . $profile->tax_category);
+        //     return back()->with('error', 'Revenue setting not found for the selected tax category.');
+        // }
+
+        // return view('payments.make', compact('profile', 'revenueSettings'));
+
+
+
+        {
+            // Fetching mineral deposits, mining sites, and revenue settings from the database
+            $mineralDeposits = MineralDeposit::all();
+            $miningSites = MiningSite::all();
+            $taxCategories = [
+                'Royalty', 'Corporate Income Tax', 'Indirect Tax',
+                'Licensing Fees', 'Surface Right Fees',
+                'Environmental Fees', 'Production Sharing'
+            ];
+
+            return view('payments.make', compact('mineralDeposits', 'miningSites', 'taxCategories'));
         }
-
-        return view('payments.make', compact('profile', 'revenueSettings'));
     }
 
 

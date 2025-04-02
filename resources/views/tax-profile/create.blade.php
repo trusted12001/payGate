@@ -26,7 +26,7 @@
                 <!-- Taxpayer Type -->
                 <div class="form-group">
                     <label for="taxpayer_type">Taxpayer Type</label>
-                    <select name="taxpayer_type" class="form-control" required>
+                    <select name="taxpayer_type" id="taxpayer_type" class="form-control" required>
                         <option value="">Select Type</option>
                         <option value="Individual">Individual</option>
                         <option value="Company">Company</option>
@@ -34,13 +34,13 @@
                 </div>
 
                 <!-- Full Name (for individuals) -->
-                <div class="form-group">
+                <div class="form-group" id="full_name">
                     <label for="full_name">Full Name (For Individual Taxpayers)</label>
                     <input type="text" name="full_name" class="form-control" value="{{ old('full_name') }}" placeholder="Enter full name">
                 </div>
 
                 <!-- Business Name (for companies) -->
-                <div class="form-group">
+                <div class="form-group" id="business_name" style="display: none;">
                     <label for="business_name">Business Name (For Companies)</label>
                     <input type="text" name="business_name" class="form-control" value="{{ old('business_name') }}" placeholder="Enter business name">
                 </div>
@@ -84,15 +84,21 @@
                 </div>
 
                 <!-- Business Registration Number -->
-                <div class="form-group">
+                <div class="form-group" id="business_reg_number" style="display: none;">
                     <label for="business_reg_number">Business Registration Number (For Companies)</label>
                     <input type="text" name="business_reg_number" class="form-control" value="{{ old('business_reg_number') }}" placeholder="Enter business registration number">
                 </div>
 
                 <!-- Identification Number -->
-                <div class="form-group">
+                <div class="form-group" id="identification_number">
                     <label for="identification_number">Identification Number (For Individuals)</label>
                     <input type="text" name="identification_number" class="form-control" value="{{ old('identification_number') }}" placeholder="Enter NIN/Driver's License">
+                </div>
+
+                <!-- Vehicle Registration Number -->
+                <div class="form-group">
+                    <label for="vehicle_registration">Vehicle Reg. Number (Optional)</label>
+                    <input type="text" name="vehicle_registration" class="form-control" value="{{ old('vehicle_registration') }}" placeholder="Enter Vehicle Registration">
                 </div>
 
                 <!-- Registered Address -->
@@ -130,4 +136,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let taxpayerType = document.getElementById("taxpayer_type");
+        let fullName = document.getElementById("full_name");
+        let businessName = document.getElementById("business_name");
+        let businessRegNumber = document.getElementById("business_reg_number");
+        let identificationNumber = document.getElementById("identification_number");
+
+        function toggleFields() {
+            if (taxpayerType.value === "Company") {
+                fullName.style.display = "none";
+                identificationNumber.style.display = "none";
+                businessName.style.display = "block";
+                businessRegNumber.style.display = "block";
+            } else {
+                fullName.style.display = "block";
+                identificationNumber.style.display = "block";
+                businessName.style.display = "none";
+                businessRegNumber.style.display = "none";
+            }
+        }
+
+        taxpayerType.addEventListener("change", toggleFields);
+        toggleFields();
+    });
+</script>
 @endsection

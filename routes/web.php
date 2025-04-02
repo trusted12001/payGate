@@ -41,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/tax-profile/edit', [TaxProfileController::class, 'edit'])->name('tax-profile.edit');
     Route::post('/tax-profile/update', [TaxProfileController::class, 'update'])->name('tax-profile.update');
     Route::resource('tax-profile', TaxProfileController::class);
+    Route::get('/tax-profile/{id}', [TaxProfileController::class, 'show'])->name('tax-profile.show');
+
 
     Route::prefix('payments')->name('payments.')->group(function () {
         Route::get('/history', [\App\Http\Controllers\PaymentController::class, 'history'])->name('history');

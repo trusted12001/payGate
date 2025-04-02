@@ -41,6 +41,7 @@
                         <td>{{ $profile->tax_category }}</td>
                         <td>{{ $profile->status }}</td>
                         <td>
+                            <a href="{{ route('tax-profile.show', $profile->id) }}" class="btn btn-sm btn-info">View</a>
                             <a href="{{ route('tax-profile.edit', $profile->id) }}" class="btn btn-sm btn-warning">Edit</a>
                             <form action="{{ route('tax-profile.destroy', $profile->id) }}" method="POST" style="display:inline;">
                                 @csrf
