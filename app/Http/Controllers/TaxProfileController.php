@@ -44,11 +44,11 @@ class TaxProfileController extends Controller
             'email' => 'required|email|unique:tax_profiles',
             'phone_number' => 'required|string|max:20',
             'local_government' => 'required|string',
-            'tax_category' => 'required|string',
+            'tax_category' => 'nullable|string',
             'business_reg_number' => 'nullable|string',
             'identification_number' => 'nullable|string',
             'registered_address' => 'required|string',
-            'assigned_agent_id' => 'nullable|exists:users,id',
+            //'assigned_agent_id' => 'nullable|exists:users,id',
         ]);
 
         TaxProfile::create([
@@ -59,7 +59,7 @@ class TaxProfileController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'local_government' => $request->local_government,
-            'tax_category' => $request->tax_category,
+            //'tax_category' => $request->tax_category,
             'business_reg_number' => $request->business_reg_number,
             'identification_number' => $request->identification_number,
             'vehicle_registration' => $request->vehicle_registration,

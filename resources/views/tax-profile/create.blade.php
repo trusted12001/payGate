@@ -68,20 +68,6 @@
                     </select>
                 </div>
 
-                <!-- Tax Category -->
-                <div class="form-group">
-                    <label for="tax_category">Tax Category</label>
-                    <select name="tax_category" class="form-control" required>
-                        <option value="">Select Tax Category</option>
-                        <option value="Royalty">Royalty</option>
-                        <option value="Corporate Income Tax">Corporate Income Tax</option>
-                        <option value="Indirect Tax">Indirect Tax</option>
-                        <option value="Licensing Fees">Licensing Fees</option>
-                        <option value="Surface Right Fees">Surface Right Fees</option>
-                        <option value="Environmental Fees">Environmental Fees</option>
-                        <option value="Production Sharing">Production Sharing</option>
-                    </select>
-                </div>
 
                 <!-- Business Registration Number -->
                 <div class="form-group" id="business_reg_number" style="display: none;">
@@ -107,16 +93,6 @@
                     <input type="text" name="registered_address" class="form-control" value="{{ old('registered_address') }}" required placeholder="Enter registered address">
                 </div>
 
-                <!-- Assigned Agent -->
-                <div class="form-group">
-                    <label for="assigned_agent_id">Assigned Agent</label>
-                    <select name="assigned_agent_id" class="form-control">
-                        <option value="">Select Agent</option>
-                        @foreach($agents as $agent)
-                            <option value="{{ $agent->id }}">{{ $agent->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <!-- Status (Only Super Admin can change this) -->
                 @if(auth()->user()->hasRole('Super Admin'))

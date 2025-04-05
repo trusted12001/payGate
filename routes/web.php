@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\POSController;
 use App\Http\Controllers\TaxProfileController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 
 
 
@@ -24,6 +25,9 @@ Route::get('/validate', function () {
 Route::get('/contact', function () {
     return view('contact'); // Create a corresponding view (resources/views/contact.blade.php)
 })->name('contact');
+
+//Route::post('/generate-invoice', [PaymentController::class, 'generateInvoice'])->name('generate.invoice');
+//Route::get('/generate-invoice', [PaymentController::class, 'generateInvoice'])->name('generate.invoice');
 
 
 

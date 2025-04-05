@@ -57,7 +57,28 @@ class PaymentController extends Controller
                 'Environmental Fees', 'Production Sharing'
             ];
 
-            return view('payments.make', compact('mineralDeposits', 'miningSites', 'taxCategories'));
+            $revenueSettings = RevenueSetting::all();
+
+            $unitPrices = [];
+
+            foreach ($revenueSettings as $setting) {
+                $unitPrices[$setting->mineral_id] = [
+                    'gram' => $setting->per_gram,
+                    'kg' => $setting->per_kg,
+                    'bag' => $setting->per_bag,
+                    'ton' => $setting->per_ton,
+                    'truck' => $setting->per_truck,
+                ];
+            }
+
+            $mineralNameMap = $mineralDeposits->pluck('mineral_name', 'id');
+            return view('payments.make', compact(
+                'mineralDeposits',
+                'miningSites',
+                'taxCategories',
+                'unitPrices',
+                'mineralNameMap'
+            ));
         }
     }
 
@@ -70,6 +91,8 @@ class PaymentController extends Controller
             'payment_amount' => 'required|numeric|min:0',
             'payment_method' => 'required|string|in:POS,Online,Agent',
         ]);
+
+
 
         Payment::create([
             'user_id' => Auth::id(),

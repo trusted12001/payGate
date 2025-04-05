@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     <label for="taxpayer_type">Taxpayer Type</label>
-                    <select name="taxpayer_type" class="form-control" required>
+                    <select name="taxpayer_type" id="taxpayer_type" class="form-control" required>
                         <option value="Individual" {{ $taxProfile->taxpayer_type == 'Individual' ? 'selected' : '' }}>Individual</option>
                         <option value="Company" {{ $taxProfile->taxpayer_type == 'Company' ? 'selected' : '' }}>Company</option>
                     </select>
@@ -97,4 +97,32 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let taxpayerType = document.getElementById("taxpayer_type");
+        let fullName = document.getElementById("full_name");
+        let businessName = document.getElementById("business_name");
+        let businessRegNumber = document.getElementById("business_reg_number");
+        let identificationNumber = document.getElementById("identification_number");
+
+        function toggleFields() {
+            if (taxpayerType.value === "Company") {
+                fullName.style.display = "none";
+                identificationNumber.style.display = "none";
+                businessName.style.display = "block";
+                businessRegNumber.style.display = "block";
+            } else {
+                fullName.style.display = "block";
+                identificationNumber.style.display = "block";
+                businessName.style.display = "none";
+                businessRegNumber.style.display = "none";
+            }
+        }
+
+        taxpayerType.addEventListener("change", toggleFields);
+        toggleFields();
+    });
+</script>
 @endsection

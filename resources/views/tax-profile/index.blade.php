@@ -26,7 +26,6 @@
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Tax Category</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -38,7 +37,6 @@
                         <td>{{ $profile->full_name ?? $profile->business_name }}</td>
                         <td>{{ $profile->email }}</td>
                         <td>{{ $profile->phone_number }}</td>
-                        <td>{{ $profile->tax_category }}</td>
                         <td>{{ $profile->status }}</td>
                         <td>
                             <a href="{{ route('tax-profile.show', $profile->id) }}" class="btn btn-sm btn-info">View</a>
