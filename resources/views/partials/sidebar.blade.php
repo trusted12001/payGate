@@ -20,7 +20,8 @@
                     <img src="{{ asset('images/avatar/avatar-13.png') }}" class="rounded-0 me-10" alt="User Image">
                     <div>
                         <h4 class="mb-0 fw-600">{{ Auth::user()->name }}</h4>
-                        <p class="mb-0">Super Admin</p>
+                        <p class="mb-0">{{ Auth::user()->getRoleNames()->first() }}</p>
+
                     </div>
                 </div>
                 <div class="info">

@@ -29,6 +29,9 @@ Route::get('/contact', function () {
 //Route::post('/generate-invoice', [PaymentController::class, 'generateInvoice'])->name('generate.invoice');
 //Route::get('/generate-invoice', [PaymentController::class, 'generateInvoice'])->name('generate.invoice');
 
+//For Mock Payment
+Route::post('/payments/preview', [PaymentController::class, 'showPreview'])->name('payments.preview');
+Route::get('/payments/success', [PaymentController::class, 'paymentSuccess'])->name('payments.success');
 
 
 Route::get('/dashboard', [HomeController::class, 'index'])

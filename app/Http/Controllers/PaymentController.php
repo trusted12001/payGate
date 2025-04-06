@@ -111,4 +111,30 @@ class PaymentController extends Controller
         $payment = Payment::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
         return view('payments.receipt', compact('payment'));
     }
+
+
+    //For Mock Payment
+    public function showPreview(Request $request)
+    {
+        $data = $request->validate([
+            'mineralDeposit' => 'required|exists:mineral_deposits,id',
+            'miningSite' => 'required|exists:mining_sites,id',
+            'taxCategory' => 'required|string',
+            'quantity' => 'required|numeric|min:1',
+            'unit' => 'required|string',
+            'totalAmount' => 'required|numeric',
+        ]);
+
+        $mineral = \App\Models\MineralDeposit::find($data['mineralDeposit']);
+        $site = \App\Models\MiningSite::find($data['miningSite']);
+
+        return view('payments.preview', compact('data', 'mineral', 'site'));
+    }
+
+    public function paymentSuccess()
+    {
+        return view('payments.success');
+    }
+
+
 }

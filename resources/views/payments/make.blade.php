@@ -15,71 +15,74 @@
 
     <div class="card">
         <div class="card-body">
-            @csrf
+            <form method="POST" action="{{ route('payments.preview') }}">
+                @csrf
 
-            <div class="form-group">
-                <label for="mineralDeposit">Mineral Deposit</label>
-                <select id="mineralDeposit" name="mineralDeposit" class="form-control">
-                    <option value="">Select</option>
-                    @foreach($mineralDeposits as $deposit)
-                        <option value="{{ $deposit->id }}">{{ $deposit->mineral_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="miningSite">Mining Site</label>
-                <select id="miningSite" name="miningSite" class="form-control">
-                    <option value="">Select</option>
-                    @foreach($miningSites as $site)
-                        <option value="{{ $site->id }}">{{ $site->site_name }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="taxCategory">Tax Category</label>
-                <select id="taxCategory" name="taxCategory" class="form-control">
-                    <option value="">Select</option>
-                    @foreach($taxCategories as $tax)
-                        <option value="{{ $tax }}">{{ $tax }}</option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-md-2">
-                    <label for="quantity">Quantity</label>
-                    <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" step="1">
+                <div class="form-group">
+                    <label for="mineralDeposit">Mineral Deposit</label>
+                    <select id="mineralDeposit" name="mineralDeposit" class="form-control">
+                        <option value="">Select</option>
+                        @foreach($mineralDeposits as $deposit)
+                            <option value="{{ $deposit->id }}">{{ $deposit->mineral_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="form-group col-md-10">
-                    <label>Unit</label><br>
-                    @foreach(['gram','kg','bag','ton','truck'] as $unit)
-                        <div class="form-check form-check-inline">
-                            <input type="radio" name="unit" value="{{ $unit }}" class="form-check-input" id="{{ $unit }}">
-                            <label class="form-check-label" for="{{ $unit }}">{{ ucfirst($unit) }}</label>
-                        </div>
-                    @endforeach
+
+                <div class="form-group">
+                    <label for="miningSite">Mining Site</label>
+                    <select id="miningSite" name="miningSite" class="form-control">
+                        <option value="">Select</option>
+                        @foreach($miningSites as $site)
+                            <option value="{{ $site->id }}">{{ $site->site_name }}</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="totalAmount">Total Amount</label>
-                <input type="text" id="totalAmount" class="form-control" readonly>
-            </div>
+                <div class="form-group">
+                    <label for="taxCategory">Tax Category</label>
+                    <select id="taxCategory" name="taxCategory" class="form-control">
+                        <option value="">Select</option>
+                        @foreach($taxCategories as $tax)
+                            <option value="{{ $tax }}">{{ $tax }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
-            {{-- Invoice Preview --}}
-            <div id="invoicePreview" class="mt-4 alert alert-info d-none">
-                <h5>Invoice Preview</h5>
-                <ul class="mb-0">
-                    <li><strong>Mineral:</strong> <span id="previewMineral"></span></li>
-                    <li><strong>Quantity:</strong> <span id="previewQuantity"></span></li>
-                    <li><strong>Unit:</strong> <span id="previewUnit"></span></li>
-                    <li><strong>Total Amount:</strong> <span id="previewTotal"></span></li>
-                </ul>
-            </div>
+                <div class="row">
+                    <div class="form-group col-md-2">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" step="1">
+                    </div>
+                    <div class="form-group col-md-10">
+                        <label>Unit</label><br>
+                        @foreach(['gram','kg','bag','ton','truck'] as $unit)
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="unit" value="{{ $unit }}" class="form-check-input" id="{{ $unit }}">
+                                <label class="form-check-label" for="{{ $unit }}">{{ ucfirst($unit) }}</label>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
-            <button type="button" class="btn btn-success" id="proceedPayment">Proceed to Payment</button>
+                <div class="form-group">
+                    <label for="totalAmount">Total Amount</label>
+                    <input type="text" id="totalAmount" class="form-control" readonly>
+                </div>
+
+                {{-- Invoice Preview --}}
+                <div id="invoicePreview" class="mt-4 alert alert-info d-none">
+                    <h5>Invoice Preview</h5>
+                    <ul class="mb-0">
+                        <li><strong>Mineral:</strong> <span id="previewMineral"></span></li>
+                        <li><strong>Quantity:</strong> <span id="previewQuantity"></span></li>
+                        <li><strong>Unit:</strong> <span id="previewUnit"></span></li>
+                        <li><strong>Total Amount:</strong> <span id="previewTotal"></span></li>
+                    </ul>
+                </div>
+
+                <input type="hidden" name="totalAmount" id="hiddenTotalAmount">
+                <button type="submit" class="btn btn-success" id="proceedPayment">Proceed to Payment</button>
+            </form>
         </div>
     </div>
 </div>
@@ -93,6 +96,14 @@
     const unitRadioButtons = document.querySelectorAll('input[name="unit"]');
     const unitPrices = @json($unitPrices);
     const mineralNames = @json($mineralDeposits->pluck('mineral_name', 'id'));
+
+
+    //Add totalAmount to the hidden input element
+    document.getElementById('proceedPayment').addEventListener('click', function () {
+        document.getElementById('hiddenTotalAmount').value = totalAmountInput.value.replace(/[₦,]/g, '');
+    });
+
+
 
     // Invoice preview elements
     const invoiceDiv = document.getElementById('invoicePreview');
