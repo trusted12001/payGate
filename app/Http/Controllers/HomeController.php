@@ -17,7 +17,8 @@ class HomeController extends Controller
 
     public function index()
     {
-        $user = auth()->user();
+        $user = auth()->user(); // for runtime
+        /** @var \App\Models\User $user */
 
         if ($user->hasRole(['Admin', 'Super Admin', 'Manager'])) {
             return view('dashboard', [

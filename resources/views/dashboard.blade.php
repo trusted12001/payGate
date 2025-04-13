@@ -121,6 +121,60 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+        <!-- Total Revenue Collected -->
+        <div class="col-xl-4 col-md-6 col-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="bg-success mb-20 w-50 h-50 rounded10 text-center l-h-50">
+                                <i class="fa fa-money fs-18"></i>
+                            </div>
+                            <h4 class="mb-5">Total Revenue</h4>
+                            <p class="text-mute mb-0">₦{{ number_format($totalCollected, 2) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Transactions -->
+        <div class="col-xl-4 col-md-6 col-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="bg-info mb-20 w-50 h-50 rounded10 text-center l-h-50">
+                                <i class="fa fa-exchange fs-18"></i>
+                            </div>
+                            <h4 class="mb-5">Transactions</h4>
+                            <p class="text-mute mb-0">{{ $totalTransactions }} Completed</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Commission Earned -->
+        <div class="col-xl-4 col-md-6 col-12">
+            <div class="box">
+                <div class="box-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="bg-warning mb-20 w-50 h-50 rounded10 text-center l-h-50">
+                                <i class="fa fa-percent fs-18"></i>
+                            </div>
+                            <h4 class="mb-5">Commission</h4>
+                            <p class="text-mute mb-0">₦{{ number_format($commission, 2) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
   </div>
 @endrole
 
