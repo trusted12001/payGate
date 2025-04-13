@@ -33,29 +33,31 @@ class UserController extends Controller
      * Store a newly created user in storage.
      */
     public function store(Request $request)
-    {
-        // Validate the incoming request.
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'roles'    => 'nullable|array',
-        ]);
+{
+    // Validate the incoming request.
+    $validated = $request->validate([
+        'name'     => 'required|string|max:255',
+        'email'    => 'required|email|max:255|unique:users',
+        'password' => 'required|string|min:8',
+        'roles'    => 'nullable|array',
+    ]);
 
-        // Create the user.
-        $user = User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
-            'password' => bcrypt($validated['password']),
-        ]);
+    // Create the user.
+    $user = User::create([
+        'name'     => $validated['name'],
+        'email'    => $validated['email'],
+        'password' => bcrypt($validated['password']),
+    ]);
 
-        // Assign roles if provided.
-        if (isset($validated['roles'])) {
-            $user->assignRole($validated['roles']);
-        }
-
-        return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+    // Assign roles if provided, otherwise default to 'tax-payer'.
+    if (isset($validated['roles']) && !empty($validated['roles'])) {
+        $user->assignRole($validated['roles']);
+    } else {
+        $user->assignRole('tax-payer');
     }
+
+    return redirect()->route('admin.users.index')->with('success', 'User created successfully.');
+}
 
     /**
      * Display the specified user.

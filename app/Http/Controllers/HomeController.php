@@ -39,9 +39,28 @@ class HomeController extends Controller
             ]);
         }
 
+
+
+
         if ($user->hasRole('tax-payer')) {
-            return view('dashboard');
+            $totalPaid = \App\Models\Payment::where('user_id', $user->id)
+                            ->where('status', 'Success')
+                            ->sum('amount');
+
+            $totalPending = \App\Models\Payment::where('user_id', $user->id)
+                              ->where('status', 'Pending')
+                              ->sum('amount');
+
+            $totalBills = $totalPaid + $totalPending;
+            $balance = $totalBills - $totalPaid;
+
+            return view('dashboard', [
+                'totalBills' => $totalBills,
+                'totalPaid'  => $totalPaid,
+                'balance'    => $balance,
+            ]);
         }
+
 
         abort(403);
     }

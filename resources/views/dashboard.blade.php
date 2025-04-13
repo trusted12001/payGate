@@ -203,6 +203,61 @@
       </div>
     </div>
   </div>
+
+
+  <div class="row">
+    <!-- Total Bills -->
+    <div class="col-xl-4 col-md-6 col-12">
+        <div class="box">
+            <div class="box-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="bg-primary mb-20 w-50 h-50 rounded10 text-center l-h-50">
+                            <i class="fa fa-file-invoice-dollar fs-18"></i>
+                        </div>
+                        <h4 class="mb-5">Total Bills</h4>
+                        <p class="text-mute mb-0">₦{{ number_format($totalBills, 2) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Paid -->
+    <div class="col-xl-4 col-md-6 col-12">
+        <div class="box">
+            <div class="box-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="bg-success mb-20 w-50 h-50 rounded10 text-center l-h-50">
+                            <i class="fa fa-check-circle fs-18"></i>
+                        </div>
+                        <h4 class="mb-5">Total Paid</h4>
+                        <p class="text-mute mb-0">₦{{ number_format($totalPaid, 2) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Outstanding Balance -->
+    <div class="col-xl-4 col-md-6 col-12">
+        <div class="box">
+            <div class="box-body">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <div class="bg-danger mb-20 w-50 h-50 rounded10 text-center l-h-50">
+                            <i class="fa fa-exclamation-circle fs-18"></i>
+                        </div>
+                        <h4 class="mb-5">Outstanding</h4>
+                        <p class="text-mute mb-0">₦{{ number_format($balance, 2) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endrole
 
 

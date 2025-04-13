@@ -41,6 +41,14 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+
+    // Assign roles if provided, otherwise default to 'tax-payer'.
+    if (isset($request->roles) && !empty($request->roles)) {
+        $user->assignRole($request->roles);
+    } else {
+        $user->assignRole('tax-payer');
+    }
+
         event(new Registered($user));
 
         Auth::login($user);

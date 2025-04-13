@@ -28,6 +28,8 @@
             @enderror
         </div>
 
+        <input type="hidden" name="roles" value="tax-payer">
+
         <!-- Password -->
         <div class="form-group mt-4">
             <label for="password" class="input-label">{{ __('Password') }}</label>

@@ -37,9 +37,7 @@ Route::post('/payments/preview', [PaymentController::class, 'showPreview'])->nam
 Route::get('/payments/success', [PaymentController::class, 'paymentSuccess'])->name('payments.success');
 
 
-Route::get('/dashboard', [HomeController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -85,7 +83,7 @@ Route::middleware(['auth', 'role:Super Admin'])->prefix('admin')->name('admin.')
 
 
 
-Route::middleware(['auth', 'role:Super Admin|admin|manager'])->group(function () {
+Route::middleware(['auth', 'role:Super Admin|Admin|manager'])->group(function () {
     Route::resource('agencies', AgencyController::class);
     Route::get('agencies/{agency}/assign-agent', [AgentAssignmentController::class, 'create'])->name('agent-assignment.create');
     Route::post('agencies/{agency}/assign-agent', [AgentAssignmentController::class, 'store'])->name('agent-assignment.store');
