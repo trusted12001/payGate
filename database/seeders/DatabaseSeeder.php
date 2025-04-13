@@ -16,11 +16,16 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MineralDepositSeeder::class);
         $this->call(UserRoleSeeder::class);
+        $this->call([
+            LgaSeeder::class,
+        ]);
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
     }
+
+
 
 }

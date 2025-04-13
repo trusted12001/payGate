@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\POSController;
 use App\Http\Controllers\TaxProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\AgentAssignmentController;
+
 
 
 
@@ -78,6 +81,18 @@ Route::middleware(['auth', 'role:Super Admin'])->prefix('admin')->name('admin.')
     Route::resource('mineral_deposits', \App\Http\Controllers\Admin\MineralDepositController::class);
 
 });
+
+
+
+
+Route::middleware(['auth', 'role:Super Admin|admin|manager'])->group(function () {
+    Route::resource('agencies', AgencyController::class);
+    Route::get('agencies/{agency}/assign-agent', [AgentAssignmentController::class, 'create'])->name('agent-assignment.create');
+    Route::post('agencies/{agency}/assign-agent', [AgentAssignmentController::class, 'store'])->name('agent-assignment.store');
+    Route::get('agencies/{agency}/agents', [App\Http\Controllers\AgencyController::class, 'viewAgents'])->name('agencies.agents');
+
+});
+
 
 
 require __DIR__.'/auth.php';

@@ -9,7 +9,14 @@ class AgentAssignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'pos_machine_id', 'assigned_at'];
+    protected $fillable = [
+        'user_id',
+        'agency_id',
+        'lga_id',
+        'pos_machine_id',
+        'assigned_at',
+    ];
+
 
     /**
      * Relationship to the user (agent).
@@ -26,4 +33,10 @@ class AgentAssignment extends Model
     {
         return $this->belongsTo(POSMachine::class, 'pos_machine_id');
     }
+
+    public function lga()
+    {
+        return $this->belongsTo(Lga::class);
+    }
+
 }

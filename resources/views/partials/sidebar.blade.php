@@ -65,6 +65,26 @@
                         </a>
                     </li>
 
+                    <!-- Agencies -->
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="icon-Calculator"><span class="path1"></span><span class="path2"></span></i>
+                            <span>Agencies</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-right pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li>
+                                <a href="{{ route('agencies.index') }}">
+                                    <i class="icon-List"></i> View Agencies
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
                     <!-- Tax Profile Menu -->
                     <li class="treeview">
                         <a href="#">
