@@ -52,6 +52,7 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    @role('Super Admin|Admin|Manager')
                     <li>
                         <a href="{{ route('admin.users.index') }}">
                             <i class="icon-User"><span class="path1"></span><span class="path2"></span></i>
@@ -64,8 +65,10 @@
                             <span>POS Machines</span>
                         </a>
                     </li>
+                    @endrole
 
                     <!-- Agencies -->
+                    @role('Super Admin|Admin')
                     <li class="treeview">
                         <a href="#">
                             <i class="icon-Calculator"><span class="path1"></span><span class="path2"></span></i>
@@ -82,6 +85,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endrole
 
 
 
@@ -109,6 +113,7 @@
                     </li>
 
                     <!-- Settings -->
+                    @role('Super Admin|Admin')
                     <li class="treeview">
                         <a href="#">
                             <i class="icon-Settings"><span class="path1"></span><span class="path2"></span></i>
@@ -138,6 +143,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endrole
 
                     <!-- Payments -->
                     <li class="treeview">
